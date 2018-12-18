@@ -1,0 +1,2 @@
+# disposable
+Disposable email domains
