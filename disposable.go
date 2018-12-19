@@ -1,3 +1,5 @@
+// Package disposable a helper function to check whether an email domain
+// is to be considered disposable
 package disposable
 
 import (
