@@ -1,8 +1,8 @@
 # Disposable email domains helpers
 Disposable email domains helpers (based on [ivolo/disposable-email-domains](https://github.com/ivolo/disposable-email-domains))
-Due to Go naming conventions (hyphens in package name should be avoided) I preferred to create this repository instead of sumitting a pull request but the idea is to keep `index.json` up-to-date with parent repository.
-I did not find useful `wildcard.json` file so it is not included but maybe in the future I will.
-As of now, only Golang helper is present but I mean to add helpers for other languages and publish this repository to the main package managers (such as npm).
+Due to Go naming conventions (hyphens in package name should be avoided) I preferred to create this repository instead of submitting a pull request but the idea is to keep `index.json` up-to-date with parent repository.
+I did not find `wildcard.json` file useful so I did not include it but maybe in the future I will.
+As of now, only Go helper is present but I mean to add helpers for other languages and publish this repository to the main package managers (such as npm).
 # Go
 ## Installation
 ```
