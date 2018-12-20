@@ -1,5 +1,5 @@
 # Disposable email domains helpers
-[![GoDoc](https://godoc.org/github.com/pidario/disposable?status.svg)](https://godoc.org/github.com/pidario/disposable)
+[![GoDoc](https://godoc.org/github.com/pidario/disposable?status.svg)](https://godoc.org/github.com/pidario/disposable) [![Build Status](https://travis-ci.com/pidario/disposable.svg?branch=master)](https://travis-ci.com/pidario/disposable)
 
 Disposable email domains helpers (based on [ivolo/disposable-email-domains](https://github.com/ivolo/disposable-email-domains))
 
