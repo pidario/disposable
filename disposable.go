@@ -3,12 +3,13 @@
 package disposable
 
 import (
+	"bufio"
 	"encoding/json"
 	"sort"
 	"strings"
-
-	"github.com/gobuffalo/packr"
 )
+
+//go:generate go run vfsdata_generate.go
 
 // Domains contains the list of the blacklisted domains and eventual error
 type Domains struct {
@@ -17,13 +18,21 @@ type Domains struct {
 }
 
 func read() ([]string, error) {
-	box := packr.NewBox(".")
 	var content []string
-	file, err := box.Find("index.json")
+	var b []byte
+	file, err := asset.Open("index.json")
 	if err != nil {
 		return nil, err
 	}
-	err = json.Unmarshal(file, &content)
+	defer file.Close()
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		t := scanner.Bytes()
+		for _, _t := range t {
+			b = append(b, _t)
+		}
+	}
+	err = json.Unmarshal(b, &content)
 	if err != nil {
 		return nil, err
 	}

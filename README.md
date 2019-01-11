@@ -8,6 +8,15 @@ I did not find `wildcard.json` file useful so I did not include it but maybe in 
 
 As of now, only Go helper is present but I mean to add helpers for other languages and publish this repository to the main package managers (such as npm).
 # Go
+## Building
+to generate the asset file it is necessary to run
+```
+go generate
+```
+## Testing
+```
+go test
+```
 ## Installation
 ```
 go get -u -v github.com/pidario/disposable
