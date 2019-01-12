@@ -7,19 +7,13 @@ import (
 	"testing"
 )
 
-func newDisposableDomains(t *testing.T) Domains {
-	D := NewDomainChecker()
-	if D.Error != nil {
-		t.Fatal(D.Error)
-	}
-	if len(D.List) == 0 {
-		t.Fatal("file index.json is empty")
-	}
-	return D
+var D Domains
+
+func init() {
+	D = NewDomainChecker()
 }
 
 func testDisposability(domains []string, expected bool, t *testing.T) {
-	D := newDisposableDomains(t)
 	not := ""
 	if !expected {
 		not = " NOT"
@@ -28,6 +22,14 @@ func testDisposability(domains []string, expected bool, t *testing.T) {
 		if res := D.IsDisposable(domain); res != expected {
 			t.Errorf("domain %s%s expected to be disposable but found %v", domain, not, res)
 		}
+	}
+}
+func TestInit(t *testing.T) {
+	if D.Error != nil {
+		t.Fatal(D.Error)
+	}
+	if len(D.List) == 0 {
+		t.Fatal("file index.json is empty")
 	}
 }
 
@@ -50,7 +52,6 @@ func TestNotDisposable(t *testing.T) {
 }
 
 func TestDuplicates(t *testing.T) {
-	D := newDisposableDomains(t)
 	m := map[string]bool{}
 	for _, domain := range D.List {
 		if m[domain] {
@@ -62,7 +63,6 @@ func TestDuplicates(t *testing.T) {
 }
 
 func TestIsSorted(t *testing.T) {
-	D := newDisposableDomains(t)
 	var sortedSlice []string
 	for _, v := range D.List {
 		sortedSlice = append(sortedSlice, v)
@@ -81,7 +81,6 @@ func TestIsSorted(t *testing.T) {
 }
 
 func TestIsLowerCase(t *testing.T) {
-	D := newDisposableDomains(t)
 	var lowerCaseSlice []string
 	for _, v := range D.List {
 		lowerCaseSlice = append(lowerCaseSlice, strings.ToLower(v))
@@ -97,7 +96,6 @@ func TestIsLowerCase(t *testing.T) {
 }
 
 func TestError(t *testing.T) {
-	D := NewDomainChecker()
 	D.Error = fmt.Errorf("manual error")
 	if check := D.IsDisposable("mailinatar.com"); check {
 		t.Fatal("mailinatar.com is disposable but it should be flagged as non-disposable because the error is set")
