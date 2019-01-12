@@ -1,4 +1,4 @@
-// Package disposable a helper function to check whether an email domain
+// Package disposable contains a helper function used to check whether an email domain
 // is to be considered disposable
 package disposable
 
@@ -11,48 +11,41 @@ import (
 
 //go:generate go run vfsdata_generate.go
 
-// Domains contains the list of the blacklisted domains and eventual error
+// Domains contains the list of the disposable domains and error (if any)
 type Domains struct {
 	List  []string
 	Error error
 }
 
-func read() ([]string, error) {
-	var content []string
-	var b []byte
+func readList() ([]string, error) {
+	var list []string
 	file, err := asset.Open("index.json")
 	if err != nil {
 		return nil, err
 	}
 	defer file.Close()
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		t := scanner.Bytes()
-		for _, _t := range t {
-			b = append(b, _t)
-		}
-	}
-	err = json.Unmarshal(b, &content)
+	rd := bufio.NewReader(file)
+	err = json.NewDecoder(rd).Decode(&list)
 	if err != nil {
 		return nil, err
 	}
-	return content, nil
+	return list, nil
 }
 
 // NewDomainChecker initializes a Domains object
 func NewDomainChecker() (d Domains) {
-	content, err := read()
+	list, err := readList()
 	if err != nil {
 		d.Error = err
 		return
 	}
-	d.List = content
+	d.List = list
 	return
 }
 
-// IsDisposable checks if the provided domain is contained in blacklist
+// IsDisposable checks if the provided domain is contained in list
 func (d *Domains) IsDisposable(domain string) bool {
-	// d.Error != nil means that some sort of reading error happended, so domain should NOT be considered blacklisted
+	// d.Error != nil means that some sort of reading error happended, so domain should NOT be considered disposable
 	if d.Error != nil {
 		return false
 	}

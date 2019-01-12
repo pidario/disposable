@@ -8,14 +8,14 @@ I did not find `wildcard.json` file useful so I did not include it but maybe in 
 
 As of now, only Go helper is present but I mean to add helpers for other languages and publish this repository to the main package managers (such as npm).
 # Go
-## Building
-to generate the asset file it is necessary to run
+## Generating asset file
+necessary each time `list/index.json` is updated
 ```
 go generate
 ```
 ## Testing
 ```
-go test
+go test -v
 ```
 ## Installation
 ```
@@ -44,4 +44,4 @@ func main() {
 }
 ```
 # Contributing
-Of course PR are more than welcome. But as I mentioned, the list itself depends on another repository so I will consider only those that modify the helper code and/or tests (Go or other languages if any). Of course unit tests should be added too.
+Of course PR are more than welcome. But as I mentioned, since the list itself depends on another repository, I will consider only those that add or modify helper codes and/or tests (in any language).
