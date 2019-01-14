@@ -45,7 +45,7 @@ func NewDomainChecker() (d Domains) {
 
 // IsDisposable checks if the provided domain is contained in list
 func (d *Domains) IsDisposable(domain string) bool {
-	// d.Error != nil means that some sort of reading error happended, so domain should NOT be considered disposable
+	// d.Error != nil means that some sort of reading error happened, so domain should NOT be considered disposable
 	if d.Error != nil {
 		return false
 	}
