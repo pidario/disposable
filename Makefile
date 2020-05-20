@@ -10,14 +10,17 @@ generate:
 	$(GO) generate
 
 test:
-	$(GO) test
+	$(GO) test -v
 
 release:
 	$(GIT) add --all
 	$(GIT) commit -S
+
+full-release:
+	release
 	$(GIT) tag -s $(VERSION)
 
 push:
 	$(GIT) push --follow-tags
 
-.PHONY: generate test release push
+.PHONY: generate test release full-release push

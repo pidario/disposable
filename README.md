@@ -9,25 +9,22 @@ I did not find `wildcard.json` file useful so I did not include it but maybe in 
 As of now, only Go helper is present but I mean to add helpers for other languages and publish this repository to the main package managers (such as npm).
 # Go
 ## Development
-### Installing vfsgen
+### Change version
+it should be the latest version of the parent library (ivolo/disposable-email-domains);
+important: don't prepend 'v'
 ```
-go get -u -v github.com/shurcooL/vfsgen
+echo "1.0.56" > version
 ```
 ### Generating asset file
 necessary each time `list/index.json` is updated
 ```
-go generate
+make generate
 ```
 ### Testing
 ```
-go test -v
+make test
 ```
 ## Usage
-### Installation
-```
-go get -u -v github.com/pidario/disposable
-```
-### Example
 ```go
 import (
 	"fmt"
