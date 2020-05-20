@@ -1,6 +1,6 @@
 module github.com/pidario/disposable
 
-go 1.12
+go 1.14
 
 require (
 	github.com/shurcooL/httpfs v0.0.0-20190707220628-8d4bc4ba7749 // indirect
