@@ -16,8 +16,7 @@ release:
 	$(GIT) add --all
 	$(GIT) commit -S
 
-full-release:
-	release
+full-release: release
 	$(GIT) tag -s $(VERSION)
 
 push:
