@@ -2,6 +2,7 @@
 
 GO := go
 GIT := git
+VERSION := v`cat version`
 
 MAKEFLAGS += --silent
 
@@ -14,9 +15,9 @@ test:
 release:
 	$(GIT) add --all
 	$(GIT) commit -S
-	$(GIT) tag -s
+	$(GIT) tag -s $(VERSION)
 
-push: clean
+push:
 	$(GIT) push --follow-tags
 
 .PHONY: generate test release push

@@ -7,11 +7,13 @@ import (
 	"compress/gzip"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
 
+	"github.com/Masterminds/semver"
 	"github.com/shurcooL/vfsgen"
 )
 
@@ -110,7 +112,17 @@ func copy(src, dst string) error {
 }
 
 func main() {
-	latestVersion := "1.0.55"
+	version, err := os.Open("./version")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer version.Close()
+	ver, err := ioutil.ReadAll(version)
+	v, err := semver.NewVersion(fmt.Sprintf("%s", ver))
+	if err != nil {
+		log.Fatal(err)
+	}
+	latestVersion := v.String()
 	archiveDir := "disposable-email-domains-" + latestVersion
 	latestArchive := latestVersion + ".tar.gz"
 	latestReleaseURL := "https://github.com/ivolo/disposable-email-domains/archive/" + latestArchive
