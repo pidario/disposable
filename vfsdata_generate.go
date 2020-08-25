@@ -12,8 +12,9 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 
-	"github.com/Masterminds/semver"
+	"github.com/Masterminds/semver/v3"
 	"github.com/shurcooL/vfsgen"
 )
 
@@ -118,9 +119,11 @@ func main() {
 	}
 	defer version.Close()
 	ver, err := ioutil.ReadAll(version)
-	v, err := semver.NewVersion(fmt.Sprintf("%s", ver))
+	parsedVersion := strings.ReplaceAll(fmt.Sprintf("%s", ver), "\n", "")
+	parsedVersion = strings.ReplaceAll(parsedVersion, "\r\n", "")
+	v, err := semver.NewVersion(parsedVersion)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("%v: %q", err, ver)
 	}
 	latestVersion := v.String()
 	archiveDir := "disposable-email-domains-" + latestVersion
