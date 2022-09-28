@@ -23,3 +23,4 @@ push:
 	$(GIT) push --follow-tags
 
 .PHONY: generate test release full-release push
+
